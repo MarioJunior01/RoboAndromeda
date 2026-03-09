@@ -15,7 +15,7 @@ sensor_corDr = ColorSensor(Port.S2)
 
 velocidade = 200
 velocidade_curva = 100
-distancia_obstaculo = 5
+distancia_obstaculo = 10
 desviando = False
 
 # PID variáveis globais
@@ -58,15 +58,15 @@ def re():
 # Desviar obstáculo
 def desviarObj():
     re()
-    wait(500)
+    wait(1000)
     virarDireita()
-    wait(1300)
+    wait(2000)
 
     corDr = sensor_corDr.reflection()
     corEs = sensor_corEs.reflection()
     while corDr != ALVO and corEs != ALVO:
         motorEs.run(velocidade)
-        motorDr.run(velocidade * 0.6)
+        motorDr.run(velocidade * 0.8)
         wait(100)
         corDr = sensor_corDr.reflection()
         corEs = sensor_corEs.reflection()
@@ -76,7 +76,7 @@ def desviarObj():
                     wait(500)
                     ev3.speaker.beep(400)
                     andar()
-                    wait(200)
+                    wait(500)
                     curvaSuaveDireita()
                     wait(1500)
                     desviando = False
@@ -138,9 +138,6 @@ while True:
     distanciaObj = sensor_Ir.distance() 
     if distanciaObj <= distancia_obstaculo:
         parar()
-        wait(500)
-        ev3.speaker.beep(400)
-        wait(500)
         desviarObj()
     else:
         seguirLinha()
