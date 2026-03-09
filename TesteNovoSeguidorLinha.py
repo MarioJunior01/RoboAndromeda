@@ -6,15 +6,15 @@ from pybricks.tools import wait
 
 
 ev3 = EV3Brick()
-motorDr = Motor(Port.B)
-motorEs = Motor(Port.C)
+motorDr = Motor(Port.A)
+motorEs = Motor(Port.B)
 sensor_Ir = InfraredSensor(Port.S3)
 sensor_corEs = ColorSensor(Port.S1)
 sensor_corDr = ColorSensor(Port.S2)
 
 
-velocidade = 300
-velocidade_curva = 200
+velocidade = 200
+velocidade_curva = 100
 distancia_obstaculo = 5
 desviando = False
 
@@ -26,6 +26,7 @@ erro_anterior = 0
 PRETO = 10
 BRANCO = 90
 ALVO = (PRETO + BRANCO) / 2
+MARROM = 70
 
 
 def andar(vel=velocidade):
@@ -56,45 +57,49 @@ def re():
 
 # Desviar obstáculo
 def desviarObj():
-     re()
-     wait(500)
-     virarDireita()
-     wait(1300)
+    re()
+    wait(500)
+    virarDireita()
+    wait(1300)
 
-     corDr = sensor_corDr.reflection()
-     corEs = sensor_corEs.reflection()
-     while corDr != ALVO and corEs != ALVO:
-           motorEs.run(velocidade)
-           motorDr.run(velocidade * 0.6)
-           wait(100)
-           corDr = sensor_corDr.reflection()
-           corEs = sensor_corEs.reflection()
+    corDr = sensor_corDr.reflection()
+    corEs = sensor_corEs.reflection()
+    while corDr != ALVO and corEs != ALVO:
+        motorEs.run(velocidade)
+        motorDr.run(velocidade * 0.6)
+        wait(100)
+        corDr = sensor_corDr.reflection()
+        corEs = sensor_corEs.reflection()
 
-           if corDr <= ALVO or corEs <= ALVO:
-                     parar()
-                     wait(500)
-                     ev3.speaker.beep(400)
-                     andar()
-                     wait(200)
-                     curvaSuaveDireita()
-                     wait(1500)
-                     desviando = False
-                     break
+        if corDr <= ALVO or corEs <= ALVO:
+                    parar()
+                    wait(500)
+                    ev3.speaker.beep(400)
+                    andar()
+                    wait(200)
+                    curvaSuaveDireita()
+                    wait(1500)
+                    desviando = False
+                    break
 
 # Seguir linha com PID
 def seguirLinha():
     global integral, erro_anterior
 
+    
     # Lê valores de reflexão dos sensores (0 = preto, 100 = branco)
     corDr = sensor_corDr.reflection()
     corEs = sensor_corEs.reflection()
-     
+    
     erroEs = corEs-ALVO
     erroDr = corDr - ALVO
     
     # Calcula erro (diferença entre os erros dos sensores em relacao ao alvo)
     erro = erroEs - erroDr
     erro_abs = abs(erro)
+    if corEs == MARROM  or corDr == MARROM:
+        # Só vai
+        andar(500)
 
     # PID clássico
     proporcional = erro 
@@ -110,12 +115,12 @@ def seguirLinha():
 
     # Ajusta ganhos do PID dinamicamente
     # Quanto maior o erro, mais forte a correção (Kp e Kd aumentam)
-    Kp = 1.5 + (erro_abs * 0.1)   # aumenta conforme curva basicamente é a força da curva
-    Ki = 0.005                     # pequeno para evitar acumulação ou seja ele tenta estabilizar na linha
-    Kd = 0.1 + (erro_abs * 0.09)  # deixa o movimento mais suave 
+    Kp = 2.3 + (erro_abs * 0.01)   # aumenta conforme curva basicamente é a força da curva
+    Ki = 0.00001          # pequeno para evitar acumulação ou seja ele tenta estabilizar na linha
+    Kd = 0.9 + (erro_abs * 0.02)  # deixa o movimento mais suave 
 
     # Calcula correção PID
-    correcao = Kp * proporcional + Ki * integral + Kd * derivativo
+    correcao = Kp * proporcional + (Ki * 0.001) * integral + Kd * derivativo
 
     # Calcula velocidades dos motores
     velA = vel_base + correcao
@@ -133,6 +138,9 @@ while True:
     distanciaObj = sensor_Ir.distance() 
     if distanciaObj <= distancia_obstaculo:
         parar()
+        wait(500)
+        ev3.speaker.beep(400)
+        wait(500)
         desviarObj()
     else:
         seguirLinha()
