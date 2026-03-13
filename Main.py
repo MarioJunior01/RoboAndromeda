@@ -18,11 +18,9 @@ velocidade_curva = 100
 distancia_obstaculo = 10
 desviando = False
 
-# PID variáveis globais
 integral = 0
 erro_anterior = 0
 
-# Calibração simples
 PRETO = 10
 BRANCO = 90
 ALVO = (PRETO + BRANCO) / 2
@@ -55,7 +53,6 @@ def re():
     motorDr.run(-velocidade_curva)
     motorEs.run(-velocidade_curva)
 
-# Desviar obstáculo
 def desviarObj():
     re()
     wait(1000)
@@ -82,47 +79,37 @@ def desviarObj():
                     desviando = False
                     break
 
-# Seguir linha com PID
 def seguirLinha():
     global integral, erro_anterior
 
-    
-    # Lê valores de reflexão dos sensores (0 = preto, 100 = branco)
     corDr = sensor_corDr.reflection()
     corEs = sensor_corEs.reflection()
     
     erroEs = corEs-ALVO
     erroDr = corDr - ALVO
     
-    # Calcula erro (diferença entre os erros dos sensores em relacao ao alvo)
+    
     erro = erroEs - erroDr
     erro_abs = abs(erro)
     if corEs == MARROM  or corDr == MARROM:
-        # Só vai
         andar(500)
 
-    # PID clássico
     proporcional = erro 
     integral += erro
     derivativo = erro - erro_anterior
     erro_anterior = erro
 
-    # --- AJUSTE DINÂMICO ---
-    # Reduz velocidade se estiver muito fora da linha
-    # Ex: erro alto → velocidade menor
+   
     vel_base = velocidade - erro_abs * 2
-    vel_base = max(150, min(vel_base, velocidade))  # limita entre 150 e velocidade normal
+    vel_base = max(150, min(vel_base, velocidade)) 
 
-    # Ajusta ganhos do PID dinamicamente
-    # Quanto maior o erro, mais forte a correção (Kp e Kd aumentam)
-    Kp = 2.3 + (erro_abs * 0.01)   # aumenta conforme curva basicamente é a força da curva
-    Ki = 0.00001          # pequeno para evitar acumulação ou seja ele tenta estabilizar na linha
-    Kd = 0.9 + (erro_abs * 0.02)  # deixa o movimento mais suave 
+ 
+    Kp = 2.3 + (erro_abs * 0.01)  
+    Ki = 0.00001          
+    Kd = 0.9 + (erro_abs * 0.02)   
 
-    # Calcula correção PID
     correcao = Kp * proporcional + (Ki * 0.001) * integral + Kd * derivativo
 
-    # Calcula velocidades dos motores
     velA = vel_base + correcao
     velB = vel_base - correcao
 
