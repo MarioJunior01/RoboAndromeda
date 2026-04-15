@@ -3,14 +3,23 @@ from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import Motor, ColorSensor, InfraredSensor
 from pybricks.parameters import Port, Color
 from pybricks.tools import wait
+from ev3muxdevices import MuxTouchSensor, MuxColorSensor, MuxInfraredSensor, MuxGyroSensor, MuxUltrasonicSensor
+
+
 
 
 ev3 = EV3Brick()
 motorDr = Motor(Port.A)
 motorEs = Motor(Port.B)
 sensor_Ir = InfraredSensor(Port.S3)
-sensor_corEs = ColorSensor(Port.S1)
-sensor_corDr = ColorSensor(Port.S2)
+sensor_corEs = ColorSensor(Port.S3)
+sensor_corDr = ColorSensor(Port.S4)
+sensorDr_Multi=MuxColorSensor(1, 1)
+sensor_corEs_Multi=MuxColorSensor(1, 3)
+
+sensorDistancia_Multi=MuxInfraredSensor(1, 2)
+
+
 
 
 velocidade = 200
