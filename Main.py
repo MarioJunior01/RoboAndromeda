@@ -11,16 +11,14 @@ from ev3muxdevices import MuxTouchSensor, MuxColorSensor, MuxInfraredSensor, Mux
 ev3 = EV3Brick()
 motorDr = Motor(Port.A)
 motorEs = Motor(Port.B)
-sensor_Ir = InfraredSensor(Port.S3)
+sensor_Ir = InfraredSensor(Port.S2)
 sensor_corEs = ColorSensor(Port.S3)
 sensor_corDr = ColorSensor(Port.S4)
-sensorDr_Multi=MuxColorSensor(1, 1)
-sensor_corEs_Multi=MuxColorSensor(1, 3)
 
 sensorDistancia_Multi=MuxInfraredSensor(1, 2)
 
-
-
+integral = 0
+erro_anterior = 0
 
 velocidade = 200
 velocidade_curva = 100
@@ -30,10 +28,11 @@ desviando = False
 integral = 0
 erro_anterior = 0
 
-PRETO = 10
-BRANCO = 90
-ALVO = (PRETO + BRANCO) / 2
-MARROM = 70
+ALVO = 50          
+
+
+
+
 
 
 def andar(vel=velocidade):
@@ -87,7 +86,7 @@ def desviarObj():
                     wait(1500)
                     desviando = False
                     break
-
+                
 def seguirLinha():
     global integral, erro_anterior
 
@@ -100,8 +99,6 @@ def seguirLinha():
     
     erro = erroEs - erroDr
     erro_abs = abs(erro)
-    if corEs == MARROM  or corDr == MARROM:
-        andar(500)
 
     proporcional = erro 
     integral += erro
@@ -113,9 +110,9 @@ def seguirLinha():
     vel_base = max(150, min(vel_base, velocidade)) 
 
  
-    Kp = 2.3 + (erro_abs * 0.01)  
-    Ki = 0.00001          
-    Kd = 0.9 + (erro_abs * 0.02)   
+    Kp = 2.5 + (erro_abs * 0.01)  
+    Ki = 0     
+    Kd = 1.5 + (erro_abs * 0.02)   
 
     correcao = Kp * proporcional + (Ki * 0.001) * integral + Kd * derivativo
 
@@ -125,10 +122,11 @@ def seguirLinha():
 
     velA = max(-400, min(400, velA))
     velB = max(-400, min(400, velB))
+    ev3.screen.print("Erro Dr: ", int(erroDr), " Es: ", int(erroEs))
 
     motorDr.run(velA)
     motorEs.run(velB)
-
+    
 
 while True:
     distanciaObj = sensor_Ir.distance() 
@@ -136,5 +134,5 @@ while True:
         parar()
         desviarObj()
     else:
-        seguirLinha()
-    wait(10) 
+     seguirLinha()
+     wait(30) 
