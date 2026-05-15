@@ -87,7 +87,7 @@ IFMS – Campus Ponta Porã
 ### 👩‍💻 Desenvolvedores
 
 * [@MarioJunior01](https://github.com/MarioJunior01)
-* [@AdhanFLB0](https://github.com/AdhanFLB0)
+* [@joaoppms](https://github.com/joaoppms)
 * [@MelissaRds](https://github.com/MelissaRds)
 
 
