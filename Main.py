@@ -3,7 +3,7 @@ from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import Motor, ColorSensor, InfraredSensor
 from pybricks.parameters import Port, Color
 from pybricks.tools import wait
-from ev3muxdevices import MuxTouchSensor, MuxColorSensor, MuxInfraredSensor, MuxGyroSensor, MuxUltrasonicSensor
+
 
 
 
@@ -15,14 +15,15 @@ sensor_Ir = InfraredSensor(Port.S2)
 sensor_corEs = ColorSensor(Port.S3)
 sensor_corDr = ColorSensor(Port.S4)
 
-sensorDistancia_Multi=MuxInfraredSensor(1, 2)
+sensorDistancia_Multi= InfraredSensor(Port.S1)
 
 integral = 0
 erro_anterior = 0
 
-velocidade = 200
-velocidade_curva = 100
-distancia_obstaculo = 10
+
+velocidade = 230
+velocidade_curva = 80
+distancia_obstaculo = 16
 desviando = False
 
 integral = 0
@@ -36,58 +37,79 @@ ALVO = 50
 
 
 def andar(vel=velocidade):
+    wait(1000)
     motorDr.run(vel)
     motorEs.run(vel)
 
 def parar():
+    wait(1000)
     motorDr.stop()
     motorEs.stop()
     wait(200)
 def curvaSuaveDireita(vel=velocidade):
+    wait(1000)
     motorDr.run(vel)
     motorEs.run(-vel*0.02)
 def curvaSuaveEsquerda(vel=velocidade):
+    wait(1000)
     motorDr.run(-vel*0.02)
     motorEs.run(vel)
+
 def virarDireita(vel=velocidade_curva):
+    wait(1000)
     motorEs.run(-vel)
     motorDr.run(vel)
 
 def virarEsquerda(vel=velocidade_curva):
+    wait(1000)
     motorEs.run(vel)
     motorDr.run(-vel)
 
 def re():
+    wait(1000)
     motorDr.run(-velocidade_curva)
     motorEs.run(-velocidade_curva)
 
-def desviarObj():
-    re()
-    wait(1000)
-    virarDireita()
-    wait(2000)
 
-    corDr = sensor_corDr.reflection()
-    corEs = sensor_corEs.reflection()
-    while corDr != ALVO and corEs != ALVO:
-        motorEs.run(velocidade)
-        motorDr.run(velocidade * 0.8)
-        wait(100)
-        corDr = sensor_corDr.reflection()
-        corEs = sensor_corEs.reflection()
+def desviar_obstaculo():
+    parar()
+    wait(000)
+    virarEsquerda(vel=200)
+    andar()
+    wait(800)
+    ev3.speaker.beep(800)
 
-        if corDr <= ALVO or corEs <= ALVO:
-                    parar()
-                    wait(500)
-                    ev3.speaker.beep(400)
-                    andar()
-                    wait(500)
-                    curvaSuaveDireita()
-                    wait(1500)
-                    desviando = False
-                    break
+    # 3. alinhar lado
+    virarDireita(vel=200)
+
+    # 4. andar um tempo FIXO (evita bug)
+    andar()
+    wait(1200)
+
+    # 5. usar sensor lateral SÓ PRA GARANTIR que passou
+   
+
+    
+    andar(250)
+    wait(10)
+
+    parar()
+    wait(300)
+
+    # 6. voltar pra linha
+    virarDireita(200)
+
+    # 7. procurar linha
+    parar()
+    wait(300)
+
+    # 8. alinhar
+    virarEsquerda()
+    ev3.speaker.beep(600)
+
                 
 def seguirLinha():
+   
     global integral, erro_anterior
 
     corDr = sensor_corDr.reflection()
@@ -131,8 +153,9 @@ def seguirLinha():
 while True:
     distanciaObj = sensor_Ir.distance() 
     if distanciaObj <= distancia_obstaculo:
-        parar()
-        desviarObj()
+        desviar_obstaculo()
+        wait(30)
+
     else:
      seguirLinha()
-     wait(30) 
+     wait(30)
