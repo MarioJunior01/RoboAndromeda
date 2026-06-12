@@ -4,24 +4,21 @@ from pybricks.ev3devices import Motor, ColorSensor, InfraredSensor
 from pybricks.parameters import Port, Color
 from pybricks.tools import wait
 
-
-
-
+from verde import verificar_verde, 
 
 ev3 = EV3Brick()
 motorDr = Motor(Port.A)
 motorEs = Motor(Port.B)
 sensor_Ir = InfraredSensor(Port.S2)
-sensor_corEs = ColorSensor(Port.S3)
-sensor_corDr = ColorSensor(Port.S4)
-
-sensorDistancia_Multi= InfraredSensor(Port.S1)
+sensor_corEs = ColorSensor(Port.S4)
+sensor_corDr = ColorSensor(Port.S3)
+sensorDistancia_Multi = InfraredSensor(Port.S1)
 
 integral = 0
 erro_anterior = 0
 
 
-velocidade = 230
+velocidade = 100
 velocidade_curva = 80
 distancia_obstaculo = 16
 desviando = False
@@ -30,11 +27,6 @@ integral = 0
 erro_anterior = 0
 
 ALVO = 50          
-
-
-
-
-
 
 def andar(vel=velocidade):
     wait(1000)
@@ -157,5 +149,11 @@ while True:
         wait(30)
 
     else:
-     seguirLinha()
-     wait(30)
+        if verificar_verde(sensor_corEs, sensor_corDr, ev3):
+            ev3.screen.clear()
+            ev3.screen.print("DETECTOU VERDE")   
+            parar()
+            wait(3000)         
+        else:
+          seguirLinha()
+        wait(30)
