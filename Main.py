@@ -1,7 +1,7 @@
 #!/usr/bin/env pybricks-micropython
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import Motor, ColorSensor, InfraredSensor
-from pybricks.parameters import Port, Color
+from pybricks.parameters import Port, Color,Stop
 from pybricks.tools import wait
 
 from verde import verificar_verde, 
@@ -13,6 +13,7 @@ sensor_Ir = InfraredSensor(Port.S2)
 sensor_corEs = ColorSensor(Port.S4)
 sensor_corDr = ColorSensor(Port.S3)
 sensorDistancia_Multi = InfraredSensor(Port.S1)
+motorSensorFrente= Motor(Port.C)
 
 integral = 0
 erro_anterior = 0
@@ -141,19 +142,13 @@ def seguirLinha():
     motorDr.run(velA)
     motorEs.run(velB)
     
-
+motorSensorFrente.run_angle(speed=0, rotation_angle=0,then=Stop.HOLD)
 while True:
     distanciaObj = sensor_Ir.distance() 
     if distanciaObj <= distancia_obstaculo:
         desviar_obstaculo()
         wait(30)
-
+  
     else:
-        if verificar_verde(sensor_corEs, sensor_corDr, ev3):
-            ev3.screen.clear()
-            ev3.screen.print("DETECTOU VERDE")   
-            parar()
-            wait(3000)         
-        else:
-          seguirLinha()
-        wait(30)
+         seguirLinha()
+         wait(30)
