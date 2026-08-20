@@ -36,6 +36,14 @@ def re():
     motorDr.run(-velocidade_curva)
     motorEs.run(-velocidade_curva)
 
+def virar_90(direcao):
+    if direcao == "Es":
+        parar()
+        wait(500)
+        virarEsquerda()
+
+    else:
+        virarDireita()    
 
 def manuais():
 

@@ -34,6 +34,23 @@ def rgb_to_hsv(r, g, b):
 
     return h, s, v
 
+def carregar_calibracao():
+    """Lê os parâmetros salvos no modo de calibração."""
+    caminho_arquivo = "/home/robot/RoboAndromeda/calibracao/calibracao.txt"
+    try:
+        with open(caminho_arquivo, "r") as arquivo:
+            conteudo = arquivo.read()
+            # Transforma a string "h1=val,s1=val..." em um dicionário Python
+            dados = {}
+            for item in conteudo.split(","):
+                chave, valor = item.split("=")
+                dados[chave] = float(valor)
+            print("[INFO] Calibração carregada com sucesso!")
+            return dados
+    except Exception as e:
+        print("[ERRO] Falha ao ler calibração, usando valores padrão:", e)
+        # Valores fallback caso o arquivo não exista
+        return {"v1": 50.0, "v2": 50.0}
 
 def executar_hsv():
     # Removido o import de os para evitar conflitos no MicroPython
@@ -59,14 +76,12 @@ def executar_hsv():
         h2, s2, v2 = rgb_to_hsv(r2, g2, b2)
          
         print("Sensor esquerdo")
-        print("RGB: r =", r1, "g =", g1, "b =", b1)
         print("HSV: h =", int(h1), "s =", int(s1), "v =", int(v1))
 
-        print("--------------------")
-
         print("Sensor direito")
-        print("RGB: r =", r2, "g =", g2, "b =", b2)
         print("HSV: h =", int(h2), "s =", int(s2), "v =", v2)
+
+
         
         # --- LÓGICA DE GRAVAÇÃO DIRETA E COMPATÍVEL ---
         if Button.CENTER in ev3.buttons.pressed():

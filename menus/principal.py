@@ -4,8 +4,10 @@ from calibracao.constantes import *
 from calibracao import *
 from movimentos.movimentosBasicos import  *
 from calibracao.hsv import *
-
-
+from movimentos.seguidorLinha import  *
+from movimentos.desvia import  *
+from movimentos.sala3 import  *
+from movimentos.verde import  *
 
 NOTE_E6 = 1318
 NOTE_D6 = 1175
@@ -68,7 +70,7 @@ def menu_principal(programa_principal):
             if indice == 0:
                 ev3.screen.print("Executando:")
                 ev3.screen.print(funcoes[0])
-                ev3.speaker.say("VAMOS LÀ")
+                #ev3.speaker.say("VAMOS LÀ")
                 programa_principal()
                 
                 wait(1000) 
@@ -76,14 +78,14 @@ def menu_principal(programa_principal):
             elif indice == 1:
                 ev3.screen.print("Executando:")
                 ev3.screen.print(funcoes[1])
-                ev3.speaker.say("Calibração")
+                #ev3.speaker.say("Calibração")
                 menu_calibracao()
                 wait(1000)
                 
             elif indice == 2:
                 ev3.screen.print("Executando:")
                 ev3.screen.print(funcoes[2])
-                ev3.speaker.say("Debug")
+                #ev3.speaker.say("Debug")
                 menu_testes()
                 wait(1000)
 
@@ -92,9 +94,9 @@ def menu_principal(programa_principal):
                 
             elif indice == 3:
                 ev3.screen.print("Saindo do Menu...")
-                ev3.speaker.say("Tchau ")
+                #ev3.speaker.say("Tchau ")
                 wait(10)
-                ev3.speaker.say("Tchau")
+                #ev3.speaker.say("Tchau")
                 break
                 
         while ev3.buttons.pressed():
@@ -223,7 +225,8 @@ def menu_testes():
                 pass
             elif indice == 3:
                 
-                pass
+                menu_indepente()
+                wait(500)
 
             elif indice == 4:
                 # Voltar
@@ -231,3 +234,80 @@ def menu_testes():
 
         while ev3.buttons.pressed():
             wait(10)
+
+
+         
+
+def menu_indepente():
+
+    funcoes = [
+        "Seguidor Linha",
+        "Desvia",
+        "Verde",
+        "Sala 3",
+        "Voltar"
+    ]
+
+    indice = 0
+
+    while True:
+
+        ev3.screen.clear()
+        ev3.screen.print("TESTES")
+        ev3.screen.print("> " + funcoes[indice])
+
+        ev3.screen.print("")
+        ev3.screen.print("[Esq/Dir] Mudar")
+        ev3.screen.print("[Centro] Executar")
+
+        while not ev3.buttons.pressed():
+            wait(10)
+
+        botoes = ev3.buttons.pressed()
+
+        if Button.RIGHT in botoes:
+            indice = (indice + 1) % len(funcoes)
+            ev3.speaker.beep(frequency=1000, duration=50)
+
+        elif Button.LEFT in botoes:
+            indice = (indice - 1) % len(funcoes)
+            ev3.speaker.beep(frequency=1000, duration=50)
+
+        elif Button.CENTER in botoes:
+            ev3.speaker.beep(frequency=1500, duration=150)
+
+            if indice == 0:
+                ev3.screen.clear()
+                ev3.screen.print("Seguidor linha")
+                ev3.speaker.say("Seguidor de linha")
+                seguidor_linha()
+                wait(500)
+                
+
+            elif indice == 1:
+                ev3.screen.clear()
+                ev3.screen.print("Desvia")
+                ev3.speaker.say("Desvia")
+                seguidor_linha()
+                wait(500)
+                
+
+             
+               
+
+            elif indice == 2:
+                
+                pass
+            elif indice == 3:
+                
+                menu_indepente()
+                wait(500)
+
+            elif indice == 4:
+                # Voltar
+                return
+
+        while ev3.buttons.pressed():
+            wait(10)
+
+        
