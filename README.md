@@ -14,7 +14,6 @@ Instituto Federal de Mato Grosso do Sul — Campus Ponta Porã
 ![OBR](https://img.shields.io/badge/OBR-2026-6f2da8?style=for-the-badge)
 ![Status](https://img.shields.io/badge/status-em_desenvolvimento-ffb703?style=for-the-badge)
 ![Equipe](https://img.shields.io/badge/equipe-Andromeda-3a0ca3?style=for-the-badge)
-![License](https://img.shields.io/badge/license-MIT-4361ee?style=for-the-badge)
 
 </div>
 
@@ -66,7 +65,7 @@ As equipes disputam etapas regionais e estaduais antes de avançar para a final 
 |---|---|---|
 | Mário Júnior | Programação | [@usuario](https://github.com/MarioJunior01) |
 | Pedro | Montagem | [@usuario]() |
-| Jõao Felipe | Eletrônica | [@usuario](https://github.com/joaoppms740-collab) |
+| Jõao Felipe | Programação | [@usuario](https://github.com/joaoppms740-collab) |
 
 > ✏️ Substitua os nomes acima pelos integrantes reais da equipe.
 
@@ -82,8 +81,6 @@ O **Astrobot** é o robô autônomo desenvolvido pela Equipe Andrômeda para a m
 |---|---|
 | **Categoria OBR** | Robótica de Resgate|
 | **Microcontrolador** | EV3 |
-| **Sensores** | _ex.: sensores de linha, ultrassônico, giroscópio..._ |
-| **Atuadores** | _ex.: motores DC, servomotores..._ |
 | **Linguagem de programação** |  Python |
 
 ### Funcionalidades
