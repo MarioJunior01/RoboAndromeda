@@ -1,80 +1,44 @@
 #!/usr/bin/env pybricks-micropython
-from pybricks.hubs import EV3Brick
-from pybricks.ev3devices import Motor, ColorSensor, InfraredSensor
-from pybricks.parameters import Port, Color,Stop
-from pybricks.tools import wait
 
-from verde import verificar_verde, 
+from calibracao.constantes import *
+from movimentos.verde import verificar_verde
+from movimentos.seguidorLinha import seguidor_linha
+from movimentos.desvia import desvia
+from menus.principal import menu_principal
+from menus.principal import *
+from movimentos.movimentosBasicos import *
 
-ev3 = EV3Brick()
-motorDr = Motor(Port.A)
-motorEs = Motor(Port.B)
-sensor_Ir = InfraredSensor(Port.S2)
-sensor_corEs = ColorSensor(Port.S4)
-sensor_corDr = ColorSensor(Port.S3)
-sensorDistancia_Multi = InfraredSensor(Port.S1)
-motorSensorFrente= Motor(Port.C)
+def programa_principal():
 
-integral = 0
-erro_anterior = 0
+    ev3.screen.clear()
+    ev3.screen.print("Executando:")
+    ev3.screen.print("Principal")
+    ev3.speaker.say("Principal")
+    wait(1000)
 
+    while True:
 
-velocidade = 100
-velocidade_curva = 80
-distancia_obstaculo = 16
-desviando = False
+        if Button.CENTER in ev3.buttons.pressed():
 
-integral = 0
-erro_anterior = 0
+            while ev3.buttons.pressed():
+                wait(10)
 
-ALVO = 50          
-
+            ev3.screen.clear()
+            ev3.screen.print("Voltando ao menu...")
+            parar()
+            wait(500)
+           
+            return
 
 
-def desviar_obstaculo():
-    parar()
-    wait(000)
-    virarEsquerda(vel=200)
-    andar()
-    wait(800)
-    ev3.speaker.beep(800)
+        seguidor_linha()
+        wait(30)  
 
-    # 3. alinhar lado
-    virarDireita(vel=200)
 
-    # 4. andar um tempo FIXO (evita bug)
-    andar()
-    wait(1200)
 
-    # 5. usar sensor lateral SÓ PRA GARANTIR que passou
-   
 
-    
-    andar(250)
-    wait(10)
+def main():
+    menu_principal(programa_principal)
 
-    parar()
-    wait(300)
-
-    # 6. voltar pra linha
-    virarDireita(200)
-
-    # 7. procurar linha
-    parar()
-    wait(300)
-
-    # 8. alinhar
-    virarEsquerda()
-    ev3.speaker.beep(600)
-
-                
-d
-while True:
-    distanciaObj = sensor_Ir.distance() 
-    if distanciaObj <= distancia_obstaculo:
-        desviar_obstaculo()
-        wait(30)
-  
-    else:
-         seguirLinha()
-         wait(30)   
+if __name__ == "__main__":
+    main()
