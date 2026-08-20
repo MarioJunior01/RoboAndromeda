@@ -63,9 +63,9 @@ As equipes disputam etapas regionais e estaduais antes de avançar para a final 
 
 | Nome | Função | GitHub |
 |---|---|---|
-| Mário Júnior | Programação | [@usuario](https://github.com/MarioJunior01) |
-| Pedro | Montagem | [@usuario]() |
-| Jõao Felipe | Programação | [@usuario](https://github.com/joaoppms740-collab) |
+| Mário Júnior | Programação | [@MarioJunior01](https://github.com/MarioJunior01) |
+| Pedro | Montagem | [@Pedro]() |
+| Jõao Felipe | Programação | [@JoaoFelipePP](https://github.com/joaoppms740-collab) |
 
 
 
