@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdncxbzUzNjdwbTBrb2Jqemd1emtuOTd0NHc2YXh1Ymp2N2twY25wOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/2pzzEi3SQzsmk/giphy.gif" width="600" alt="Animação de uma galáxia no espaço">
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaDRmbmZqcnRpZ2dsa3J5d3dmMHVhcW12anJscHZ2dXZhZjhhbnR1eiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xWMPYx55WNhX136T0V/giphy.gif" width="400" alt="Animação de uma galáxia no espaço">
 
 #  Astrobot
 
