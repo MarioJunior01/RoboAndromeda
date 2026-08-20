@@ -67,7 +67,7 @@ As equipes disputam etapas regionais e estaduais antes de avançar para a final 
 | Pedro | Montagem | [@usuario]() |
 | Jõao Felipe | Programação | [@usuario](https://github.com/joaoppms740-collab) |
 
-> ✏️ Substitua os nomes acima pelos integrantes reais da equipe.
+
 
 <p align="center">
   <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExem51ZGZwdTE1M3B1Zm1iZ2F4a3d4N2ljZ2Z0Z3hlYjY3NHV1NHVlcCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/QLWJRsXwEClN2zjFU9/giphy.gif" width="420" alt="Animação de uma galáxia girando no espaço">
@@ -97,9 +97,6 @@ O **Astrobot** é o robô autônomo desenvolvido pela Equipe Andrômeda para a m
 </p>
 
 
-
-
-> ✏️ Ajuste esse passo a passo conforme o setup real do Astrobot.
 
 ## 🗺️ Roadmap
 
