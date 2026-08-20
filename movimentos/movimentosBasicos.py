@@ -1,35 +1,79 @@
+#!/usr/bin/env pybricks-micropython
+
+from calibracao.constantes import*
+
 def andar(vel=velocidade):
-    wait(1000)
     motorDr.run(vel)
     motorEs.run(vel)
+
 
 def parar():
-    wait(1000)
     motorDr.stop()
     motorEs.stop()
-    wait(200)
+
+
 def curvaSuaveDireita(vel=velocidade):
-    wait(1000)
     motorDr.run(vel)
-    motorEs.run(-vel*0.02)
+    motorEs.run(-vel * 0.02)
+
+
 def curvaSuaveEsquerda(vel=velocidade):
-    wait(1000)
-    motorDr.run(-vel*0.02)
+    motorDr.run(-vel * 0.02)
     motorEs.run(vel)
 
+
 def virarDireita(vel=velocidade_curva):
-    wait(1000)
     motorEs.run(-vel)
     motorDr.run(vel)
 
+
 def virarEsquerda(vel=velocidade_curva):
-    wait(1000)
     motorEs.run(vel)
     motorDr.run(-vel)
 
+
 def re():
-    wait(1000)
     motorDr.run(-velocidade_curva)
     motorEs.run(-velocidade_curva)
 
 
+def manuais():
+
+    while True:
+        
+
+        botoes = ev3.buttons.pressed()
+        if Button.CENTER in ev3.buttons.pressed():
+            break
+                          
+
+        # ↑ + ←
+        elif Button.UP in botoes and Button.LEFT in botoes:
+            curvaSuaveEsquerda()
+
+        # ↑ + →
+        elif Button.UP in botoes and Button.RIGHT in botoes:
+            curvaSuaveDireita()
+
+        # ↑
+        elif Button.UP in botoes:
+            andar()
+
+        # ↓
+        elif Button.DOWN in botoes:
+            re()
+
+        # ←
+        elif Button.LEFT in botoes:
+            virarEsquerda()
+
+        # →
+        elif Button.RIGHT in botoes:
+            virarDireita()
+
+        # Centro
+
+        else:
+            parar()
+
+        wait(50)

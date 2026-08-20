@@ -1,6 +1,7 @@
-ALVO = 50      
+#!/usr/bin/env pybricks-micropython
 
-def seguirLinha():
+from calibracao.constantes import*
+def seguidor_linha():
    
     global integral, erro_anterior
 

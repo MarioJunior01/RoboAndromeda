@@ -1,4 +1,5 @@
 #!/usr/bin/env pybricks-micropython
+
 from pybricks.tools import wait
 
 TEMPO_ESPERA = 30 # tempo em ticks para evitar detecção repetida do verde
