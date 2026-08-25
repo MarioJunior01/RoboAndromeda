@@ -9,36 +9,61 @@ from menus.principal import *
 from movimentos.movimentosBasicos import *
 
 def programa_principal():
+
     ev3.screen.clear()
     ev3.screen.print("Executando:")
     ev3.screen.print("Principal")
     wait(1000)
 
     while True:
+
+
         if Button.CENTER in ev3.buttons.pressed():
+
             while ev3.buttons.pressed():
-                wait(10) 
+                wait(10)
+
+            parar()
+
             ev3.screen.clear()
             ev3.screen.print("Voltando ao menu...")
-            parar()
             wait(500)
-            return 
+
+            return
 
         
+
         distancia = sensor_distanciaFrente.distance()
+
         if distancia < DISTANCIA_OBJETO:
-            desvia() 
-        else:
+
+            desvia()
             
+
+        else:
+
+          
+
+            if verificar_verde(
+                sensor_corEs,
+                sensor_corDr,
+                ev3
+            ):
+
+              
+
+                continue
+
             seguidor_linha()
 
-        wait(20) 
-
-
+        wait(20)
 
 
 def main():
+
     menu_principal(programa_principal)
 
+
 if __name__ == "__main__":
+
     main()

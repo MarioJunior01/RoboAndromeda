@@ -3,13 +3,20 @@ from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import Motor, ColorSensor, InfraredSensor
 from pybricks.parameters import Port, Color,Stop,Button
 from pybricks.tools import wait,StopWatch
-
-
+from drives.ev3muxdevio import*
+from drives.ev3muxdevices import *
 motorDr = Motor(Port.A)
 motorEs = Motor(Port.B)
 sensor_corEs = ColorSensor(Port.S1)
 sensor_corDr = ColorSensor(Port.S2)
 sensor_distanciaFrente = InfraredSensor(Port.S3)
+
+sensorDr_Multi=MuxColorSensor(4, 1)
+sensor_corEs_Multi=MuxColorSensor(4, 2)
+
+
+
+
 VELOCIDADE_BASE = 200
 VELOCIDADE_CURVA = 100
 velocidade = 100
@@ -21,7 +28,7 @@ ALVO = 50
 integral = 0
 erro_anterior = 0      
 
-KP = 3.5  
+KP = 4.5  
 KI = 0.0001 
 KD = 0.1 
 

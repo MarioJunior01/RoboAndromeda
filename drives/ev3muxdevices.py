@@ -9,7 +9,7 @@ from pybricks.parameters import Color, Button, Direction
 from pybricks.tools import StopWatch, wait
 
 # Import ev3dev sysfs sensor base class and modes
-from ev3muxdevio import Ev3devMuxSensor, Ev3devMuxUartSensor
+from drives.ev3muxdevio import Ev3devMuxSensor, Ev3devMuxUartSensor
 
 
 class MuxTouchSensor(Ev3devMuxSensor):

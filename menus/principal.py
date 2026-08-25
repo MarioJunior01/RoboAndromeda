@@ -79,7 +79,7 @@ def menu_principal(programa_principal):
                 ev3.screen.print("Executando:")
                 ev3.screen.print(funcoes[1])
                 #ev3.speaker.say("Calibração")
-                menu_calibracao()
+                menu_calibracao_cores()
                 wait(1000)
                 
             elif indice == 2:
@@ -102,71 +102,7 @@ def menu_principal(programa_principal):
         while ev3.buttons.pressed():
             wait(10)
 
-def menu_calibracao():
 
-    funcoes = [
-        "HSV",
-        "Preto",
-        "Verde",
-        "Alvo",
-        "Voltar"
-    ]
-
-    indice = 0
-
-    while True:
-
-        ev3.screen.clear()
-        ev3.screen.print("CALIBRACAO")
-        ev3.screen.print("> " + funcoes[indice])
-
-        ev3.screen.print("")
-        ev3.screen.print("[Esq/Dir] Mudar")
-        ev3.screen.print("[Centro] Executar")
-
-        while not ev3.buttons.pressed():
-            wait(10)
-
-        botoes = ev3.buttons.pressed()
-
-        if Button.RIGHT in botoes:
-            indice = (indice + 1) % len(funcoes)
-            ev3.speaker.beep(frequency=1000, duration=50)
-
-        elif Button.LEFT in botoes:
-            indice = (indice - 1) % len(funcoes)
-            ev3.speaker.beep(frequency=1000, duration=50)
-
-        elif Button.CENTER in botoes:
-            ev3.speaker.beep(frequency=1500, duration=150)
-
-            if indice == 0:
-                ev3.screen.clear()
-                ev3.screen.print("Executando HSV")
-                ev3.speaker.say("HSV")
-                wait(500)
-                executar_hsv()
-                
-
-            elif indice == 1:
-                
-                pass
-             
-               
-
-            elif indice == 2:
-                
-                pass
-            elif indice == 3:
-                
-                pass
-
-            elif indice == 4:
-                
-                return
-
-        while ev3.buttons.pressed():
-            wait(10)
 
 def menu_testes():
 
