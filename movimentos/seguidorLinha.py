@@ -31,7 +31,7 @@ def seguidor_linha():
         
     derivada = (erro - erro_anterior) * KD
         
-        # Sinal total de correção (Turn)
+        
     turn = proporcional + i_output + derivada
         
        
