@@ -36,7 +36,8 @@ calibracao_cores = {
     "PRETO": None,
     "CINZA": None,
     "VERDE": None,
-    "VERMELHO": None
+    "VERMELHO": None,
+    "BRANCO":None
     
 }
 

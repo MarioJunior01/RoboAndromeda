@@ -2,10 +2,9 @@
 
 from calibracao.constantes import*
 
-def andar(vel=velocidade):
-    motorDr.run(vel)
+def andar(vel):
     motorEs.run(vel)
-
+    motorDr.run(vel)
 
 def parar():
     motorDr.stop()
@@ -49,7 +48,7 @@ def virar_360():
     motorDr.run(200)
     motorEs.run(-200)
 
-    wait(2000)
+    wait(3300)
 
     motorDr.stop()
     motorEs.stop()

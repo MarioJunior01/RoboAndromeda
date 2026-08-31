@@ -6,8 +6,9 @@ from calibracao.hsv import*
 def seguidor_linha():
     
    
-    erro_anterior = 0.0
-    integral = 0.0
+   
+    global erro_anterior
+    global integral
         
    
     r1, g1, b1 = sensor_corEs.rgb()

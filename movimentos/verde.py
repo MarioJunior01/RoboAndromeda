@@ -13,13 +13,10 @@ verde_tempoEspera = 0 # inteiro para o tempo de espera
 
 
 
-def detectou_verde(sensor_es, sensor_dr):
+def detectou_verde():
 
-    r_es, g_es, b_es = sensor_es.rgb()
-    r_dr, g_dr, b_dr = sensor_dr.rgb()
 
-    cor_esq = identificar_cor(r_es, g_es, b_es)
-    cor_dir = identificar_cor(r_dr, g_dr, b_dr)
+    cor_esq, cor_dir =  verificar_cor()
 
     print("ESQ:", cor_esq)
     print("DIR:", cor_dir)
@@ -42,7 +39,7 @@ def detectou_verde(sensor_es, sensor_dr):
 
     return False, None
 
-def verificar_verde(ev3,sensor_es, sensor_dr ):
+def verificar_verde():
 
     global verde_estado
     global verde_lado
@@ -53,10 +50,7 @@ def verificar_verde(ev3,sensor_es, sensor_dr ):
         verde_tempoEspera -= 1
         return False
 
-    detectou, lado = detectou_verde(
-        sensor_es,
-        sensor_dr
-    )
+    detectou, lado = detectou_verde()
 
     if not detectou:
         return False
@@ -93,7 +87,7 @@ def verificar_verde(ev3,sensor_es, sensor_dr ):
         ev3.screen.print("VERDE")
         ev3.screen.print("ESQUERDA")
         virarEsquerda()
-        wait(2000)
+        wait(3500)
 
         return True
 
@@ -109,7 +103,7 @@ def verificar_verde(ev3,sensor_es, sensor_dr ):
         ev3.screen.print("VERDE")
         ev3.screen.print("DIREITA")
         virarDireita()
-        wait(2000)
+        wait(3500)
 
         return True
     

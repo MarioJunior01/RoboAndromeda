@@ -1,9 +1,9 @@
 #!/usr/bin/env pybricks-micropython
 
 from calibracao.constantes import *
-from movimentos.verde import verificar_verde
+from movimentos.verde import *
 from movimentos.seguidorLinha import seguidor_linha
-from movimentos.desvia import desvia
+from movimentos.desvia import desviar
 from menus.principal import menu_principal
 from menus.principal import *
 from movimentos.movimentosBasicos import *
@@ -18,39 +18,24 @@ def programa_principal():
 
     while True:
 
-        # ==============================
-        # BOTÃO CENTRAL
-        # ==============================
-
         if Button.CENTER in ev3.buttons.pressed():
 
             while ev3.buttons.pressed():
                 wait(10)
 
             parar()
-
             ev3.screen.clear()
             ev3.screen.print("Voltando ao menu...")
-
             wait(500)
-
             return
 
-
-        # ==============================
-        # 1 - OBSTÁCULO
-        # ==============================
 
         distancia = sensor_distanciaFrente.distance()
 
         if distancia < DISTANCIA_OBJETO:
 
-            desvia()
-
-            continue
-
-
-
+            desviar()
+    
         if verificar_vermelho(ev3):
 
             parar()
@@ -60,11 +45,9 @@ def programa_principal():
 
             return
 
-
-        if verificar_verde(ev3,sensor_corDr,sensor_corEs):
+        if verificar_verde():
 
             continue
-
 
         seguidor_linha()
 

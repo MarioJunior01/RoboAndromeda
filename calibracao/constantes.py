@@ -14,6 +14,8 @@ sensor_distanciaFrente = InfraredSensor(Port.S3)
 sensorDr_Multi=MuxColorSensor(4, 1)
 sensor_corEs_Multi=MuxColorSensor(4, 2)
 
+sensor_distanciaLateral = MuxInfraredSensor(4,3)
+
 
 
 
@@ -21,16 +23,16 @@ VELOCIDADE_BASE = 200
 VELOCIDADE_CURVA = 100
 velocidade = 100
 velocidade_curva=100
-DISTANCIA_OBJETO= 10
+DISTANCIA_OBJETO= 5
 LIMIAR_PRETO = 10
 
 ALVO = 50
 integral = 0
 erro_anterior = 0      
 
-KP = 3.5  
-KI = 0.0001 
-KD = 0.1 
+KP = 3.5
+KI = 0.00001
+KD = 0.1
 
 
 ev3 = EV3Brick()
