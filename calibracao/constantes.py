@@ -28,7 +28,7 @@ ALVO = 50
 integral = 0
 erro_anterior = 0      
 
-KP = 3.5  
+KP = 4.5  
 KI = 0.0001 
 KD = 0.1 
 

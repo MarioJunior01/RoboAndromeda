@@ -49,7 +49,7 @@ def virar_360():
     motorDr.run(200)
     motorEs.run(-200)
 
-    wait(4000)
+    wait(2000)
 
     motorDr.stop()
     motorEs.stop()

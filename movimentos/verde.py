@@ -3,20 +3,30 @@
 from calibracao.hsv import*
 from movimentos.movimentosBasicos import *
 
-TEMPO_ESPERA = 30
+TEMPO_ESPERA = 30 # tempo em ticks para evitar detecção repetida do verde
 
-verde_estado = None
-verde_lado = None
-verde_contagem = 0
-verde_tempoEspera = 0
+verde_estado = None # estado atual do verde
+verde_lado = None # lado do verde
+verde_contagem = 0 # contagem de verdes
+verde_tempoEspera = 0 # inteiro para o tempo de espera
 
 
-def detectou_verde():
 
-    cor_esq, cor_dir = verificar_cor()
+
+def detectou_verde(sensor_es, sensor_dr):
+
+    r_es, g_es, b_es = sensor_es.rgb()
+    r_dr, g_dr, b_dr = sensor_dr.rgb()
+
+    cor_esq = identificar_cor(r_es, g_es, b_es)
+    cor_dir = identificar_cor(r_dr, g_dr, b_dr)
 
     print("ESQ:", cor_esq)
     print("DIR:", cor_dir)
+
+    ev3.screen.clear()
+    ev3.screen.print("ESQ: " + cor_esq)
+    ev3.screen.print("DIR: " + cor_dir)
 
     esq = (cor_esq == "VERDE")
     dir_ = (cor_dir == "VERDE")
@@ -32,50 +42,7 @@ def detectou_verde():
 
     return False, None
 
-
-def verificar_linha_depois_do_verde():
-
-    # ==========================================
-    # ANDA PARA SAIR DO VERDE
-    # ==========================================
-
-    andar(100)
-
-    wait(50)
-
-    motorEs.stop()
-    motorDr.stop()
-
-    wait(300)
-
-    # ==========================================
-    # LÊ OS DOIS SENSORES
-    # ==========================================
-
-    cor_esq, cor_dir = verificar_cor()
-
-    # ==========================================
-    # DECIDE ONDE ESTÁ A LINHA
-    # ==========================================
-
-    if cor_esq == "PRETO" and cor_dir == "PRETO":
-
-        return "AMBOS"
-
-    elif cor_esq == "PRETO":
-
-        return "PRETO_ESQUERDA"
-
-    elif cor_dir == "PRETO":
-
-        return "PRETO_DIREITA"
-
-    else:
-
-        return "DESCONHECIDO"
-
-
-def verificar_verde(ev3):
+def verificar_verde(sensor_es, sensor_dr, ev3):
 
     global verde_estado
     global verde_lado
@@ -86,20 +53,18 @@ def verificar_verde(ev3):
         verde_tempoEspera -= 1
         return False
 
-    # Detecta verde
-    detectou, lado = detectou_verde()
+    detectou, lado = detectou_verde(
+        sensor_es,
+        sensor_dr
+    )
 
     if not detectou:
         return False
 
     verde_lado = lado
+    verde_tempoEspera = TEMPO_ESPERA
 
-  
-
-
-    # ==========================================
-    # VERDE NOS DOIS SENSORES
-    # ==========================================
+ 
 
     if lado == "AMBOS":
 
@@ -107,27 +72,16 @@ def verificar_verde(ev3):
         verde_contagem = 2
 
         ev3.speaker.beep(1000, 100)
-
         wait(100)
-
         ev3.speaker.beep(1000, 100)
-        resultado = verificar_linha_depois_do_verde()
-        if resultado == "AMBOS":
-         ev3.screen.clear()
-         ev3.screen.print("BECO SEM SAIDA")
 
-         virar_360()
-
-         wait(3000)
-
-
+        ev3.screen.clear()
+        ev3.screen.print("BECO SEM SAIDA")
+        virar_360()
+        wait(1000)
 
         return True
 
-
-    # ==========================================
-    # VERDE À ESQUERDA
-    # ==========================================
 
     if lado == "ESQUERDA":
 
@@ -138,34 +92,12 @@ def verificar_verde(ev3):
         ev3.screen.clear()
         ev3.screen.print("VERDE")
         ev3.screen.print("ESQUERDA")
-
-        # Anda e verifica o que existe depois do verde
-        resultado = verificar_linha_depois_do_verde()
-
-        ev3.screen.clear()
-        ev3.screen.print("ESQ: " + resultado)
-
-    
-
-        if resultado == "PRETO_ESQUERDA":
-         andar(100)
-         wait(500)
-         virarEsquerda()
-           
-
-
-        else:
-
-            ev3.screen.print("DESCONHECIDO")
-
-        wait(500)
+        virarEsquerda()
+        wait(2000)
 
         return True
 
 
-    # ==========================================
-    # VERDE À DIREITA
-    # ==========================================
 
     if lado == "DIREITA":
 
@@ -176,61 +108,11 @@ def verificar_verde(ev3):
         ev3.screen.clear()
         ev3.screen.print("VERDE")
         ev3.screen.print("DIREITA")
-
-        # Anda e verifica o que existe depois do verde
-        resultado = verificar_linha_depois_do_verde()
-
-        ev3.screen.clear()
-        ev3.screen.print("DIR: " + resultado)
-
-      
-
-
-        if resultado == "PRETO_DIREITA":
-            andar(100)
-            wait(500)
-            virarDireita()
-            wait(3000)
-
-        else:
-
-            ev3.screen.print("DESCONHECIDO")
-
-        wait(500)
-
-        return True
-
-
-    return False
-
-
-def verificar_vermelho(ev3):
-
-    cor_esq, cor_dir = verificar_cor()
-
-    print("ESQ:", cor_esq)
-    print("DIR:", cor_dir)
-
-    esq = (cor_esq == "VERMELHO")
-    dir_ = (cor_dir == "VERMELHO")
-
-    if esq or dir_:
-
-        ev3.screen.clear()
-        ev3.screen.print("VERMELHO!")
-
-        if esq and dir_:
-
-            ev3.screen.print("AMBOS")
-
-        elif esq:
-
-            ev3.screen.print("ESQUERDA")
-
-        else:
-
-            ev3.screen.print("DIREITA")
+        virarDireita()
+        wait(2000)
 
         return True
 
     return False
+
+
