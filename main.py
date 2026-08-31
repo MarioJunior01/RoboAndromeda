@@ -13,10 +13,14 @@ def programa_principal():
     ev3.screen.clear()
     ev3.screen.print("Executando:")
     ev3.screen.print("Principal")
+
     wait(1000)
 
     while True:
 
+        # ==============================
+        # BOTÃO CENTRAL
+        # ==============================
 
         if Button.CENTER in ev3.buttons.pressed():
 
@@ -27,37 +31,44 @@ def programa_principal():
 
             ev3.screen.clear()
             ev3.screen.print("Voltando ao menu...")
+
             wait(500)
 
             return
 
-        
+
+        # ==============================
+        # 1 - OBSTÁCULO
+        # ==============================
 
         distancia = sensor_distanciaFrente.distance()
 
         if distancia < DISTANCIA_OBJETO:
 
             desvia()
-            
 
-        else:
+            continue
 
-          
 
-            if verificar_verde(
-                sensor_corEs,
-                sensor_corDr,
-                ev3
-            ):
 
-              
+        if verificar_vermelho(ev3):
 
-                continue
+            parar()
+            ev3.speaker.beep(400)
 
-            seguidor_linha()
+            wait(5000)
+
+            return
+
+
+        if verificar_verde(ev3,sensor_corDr,sensor_corEs):
+
+            continue
+
+
+        seguidor_linha()
 
         wait(20)
-
 
 def main():
 

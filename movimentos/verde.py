@@ -42,7 +42,7 @@ def detectou_verde(sensor_es, sensor_dr):
 
     return False, None
 
-def verificar_verde(sensor_es, sensor_dr, ev3):
+def verificar_verde(ev3,sensor_es, sensor_dr ):
 
     global verde_estado
     global verde_lado
@@ -112,7 +112,43 @@ def verificar_verde(sensor_es, sensor_dr, ev3):
         wait(2000)
 
         return True
+    
+    
 
     return False
+
+
+def verificar_vermelho(ev3):
+
+    cor_esq, cor_dir = verificar_cor()
+
+    print("ESQ:", cor_esq)
+    print("DIR:", cor_dir)
+
+    esq = (cor_esq == "VERMELHO")
+    dir_ = (cor_dir == "VERMELHO")
+
+    if esq or dir_:
+
+        ev3.screen.clear()
+        ev3.screen.print("VERMELHO!")
+
+        if esq and dir_:
+
+            ev3.screen.print("AMBOS")
+
+        elif esq:
+
+            ev3.screen.print("ESQUERDA")
+
+        else:
+
+            ev3.screen.print("DIREITA")
+
+        return True
+
+    return False
+
+
 
 
