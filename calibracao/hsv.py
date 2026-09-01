@@ -23,8 +23,8 @@ indice_cor = 0
 NUM_LEITURAS = 20
 
 # Margem adicionada aos valores calibrados
-MARGEM_H = 10
-MARGEM_S = 10
+MARGEM_H = 20
+MARGEM_S = 20
 MARGEM_V = 10
 
 

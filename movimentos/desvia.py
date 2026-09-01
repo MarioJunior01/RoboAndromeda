@@ -9,18 +9,25 @@ def ler_linha():
 
     s1 = sensor_corDr.reflection()
     s2 = sensor_corEs.reflection()
+    s3= sensor_corEs_Multi.reflection()
+    s4= sensorDr_Multi.reflection()
 
-    return s1, s2
+    return s1, s2,s3,s4
 
 
 def encontrou_linha():
 
-    s1, s2 = ler_linha()
+    s1, s2,s3,s4 = ler_linha()
 
-    if s1 < LIMIAR_PRETO:
+    if s1 < LIMIAR:
         return True
 
-    if s2 < LIMIAR_PRETO:
+    if s2 < LIMIAR:
+        return True
+    
+    if s3<LIMIAR:
+        return True
+    if s4<LIMIAR:
         return True
 
     return False

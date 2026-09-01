@@ -86,8 +86,8 @@ def verificar_verde():
         ev3.screen.clear()
         ev3.screen.print("VERDE")
         ev3.screen.print("ESQUERDA")
-        virarEsquerda()
-        wait(3500)
+        virarDireita()
+        wait(1500)
 
         return True
 
@@ -102,8 +102,8 @@ def verificar_verde():
         ev3.screen.clear()
         ev3.screen.print("VERDE")
         ev3.screen.print("DIREITA")
-        virarDireita()
-        wait(3500)
+        virarEsquerda()
+        wait(1500)
 
         return True
     

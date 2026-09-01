@@ -7,6 +7,7 @@ from drives.ev3muxdevio import*
 from drives.ev3muxdevices import *
 motorDr = Motor(Port.A)
 motorEs = Motor(Port.B)
+motorGarra = Motor(Port.C)
 sensor_corEs = ColorSensor(Port.S1)
 sensor_corDr = ColorSensor(Port.S2)
 sensor_distanciaFrente = InfraredSensor(Port.S3)
@@ -19,20 +20,22 @@ sensor_distanciaLateral = MuxInfraredSensor(4,3)
 
 
 
+
+
 VELOCIDADE_BASE = 200
 VELOCIDADE_CURVA = 100
-velocidade = 100
+velocidade = 200
 velocidade_curva=100
 DISTANCIA_OBJETO= 5
-LIMIAR_PRETO = 10
+LIMIAR= 10
 
 ALVO = 50
 integral = 0
 erro_anterior = 0      
 
-KP = 3.5
-KI = 0.00001
-KD = 0.1
+KP = 2
+KI = 0.02
+KD = 0.3
 
 
 ev3 = EV3Brick()

@@ -3,9 +3,18 @@
 from calibracao.constantes import*
 from movimentos.movimentosBasicos import *
 from calibracao.hsv import*
+from movimentos.desvia import*
 def seguidor_linha():
-    
-   
+
+
+    curva = detectar_curva_90()
+
+    if curva == 'ambos':
+        return
+
+    if curva is not None:
+        virar_90(curva)
+        return
    
     global erro_anterior
     global integral
@@ -45,3 +54,66 @@ def seguidor_linha():
     erro_anterior = erro
         
     wait(10)
+
+
+
+def detectar_curva_90():
+    """
+    Retorna 'direita', 'esquerda' ou None (sem curva),
+    combinando os sensores centrais (perderam a linha)
+    com os sensores laterais (estão vendo a linha).
+    """
+
+    # sensores centrais (Dr, Es
+    liminarDr= sensor_corEs_Multi.reflection()
+    liminarEs= sensorDr_Multi.reflection()
+
+    if liminarDr < LIMIAR:
+        return 'direita'
+
+    if liminarEs < LIMIAR:
+        return 'esquerda'
+    
+    if liminarDr < LIMIAR and liminarEs<LIMIAR:
+        return 'ambos'
+
+    return None
+def esperar_linha_apos_curva(tentativas=150):
+    # tentativas=150 * 20ms = ~3s de tolerância, ajuste conforme seu robô
+
+    if tentativas <= 0:
+        parar()
+        return
+
+    if not encontrou_linha():
+        wait(10)
+        esperar_linha_apos_curva(tentativas - 1)
+
+def virar_90(direcao):
+
+    parar()
+    wait(100)
+
+    if direcao == 'direita':
+        parar()
+        wait(100)
+        virarEsquerda(200)   # pivota no eixo, para a direita
+    if direcao=="esquerda":
+       parar()
+       wait(100)
+       virarDireita(200)
+        
+    wait(400)
+
+    esperar_linha_apos_curva()
+
+    resetar_pid()
+
+    parar()
+    wait(100)
+
+
+def resetar_pid():
+    global integral, erro_anterior
+    integral = 0
+    erro_anterior = 0    

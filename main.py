@@ -51,7 +51,7 @@ def programa_principal():
 
         seguidor_linha()
 
-        wait(20)
+        wait(10)
 
 def main():
 
