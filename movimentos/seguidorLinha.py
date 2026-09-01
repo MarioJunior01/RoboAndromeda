@@ -9,12 +9,10 @@ def seguidor_linha():
 
     curva = detectar_curva_90()
 
-    if curva == 'ambos':
-        return
 
     if curva is not None:
         virar_90(curva)
-        return
+        
    
     global erro_anterior
     global integral

@@ -30,8 +30,14 @@ def programa_principal():
             return
 
 
-        distancia = sensor_distanciaFrente.distance()
+        
+     
+        if verificar_verde():
+            continue
 
+        
+        distancia = sensor_distanciaFrente.distance()
+        
         if distancia < DISTANCIA_OBJETO:
 
             desviar()
@@ -43,11 +49,7 @@ def programa_principal():
 
             wait(5000)
 
-            return
 
-        if verificar_verde():
-
-            continue
 
         seguidor_linha()
 

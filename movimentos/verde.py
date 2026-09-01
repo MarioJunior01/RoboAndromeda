@@ -28,6 +28,9 @@ def detectou_verde():
     esq = (cor_esq == "VERDE")
     dir_ = (cor_dir == "VERDE")
 
+    if not esq and not dir_:
+         return False, None
+
     if esq and dir_:
         return True, "AMBOS"
 
@@ -37,7 +40,7 @@ def detectou_verde():
     elif dir_:
         return True, "DIREITA"
 
-    return False, None
+   
 
 def verificar_verde():
 
@@ -121,7 +124,10 @@ def verificar_vermelho(ev3):
 
     esq = (cor_esq == "VERMELHO")
     dir_ = (cor_dir == "VERMELHO")
+    
 
+    if not esq and not dir_:
+         return False
     if esq or dir_:
 
         ev3.screen.clear()
@@ -141,7 +147,7 @@ def verificar_vermelho(ev3):
 
         return True
 
-    return False
+   
 
 
 
