@@ -1,4 +1,3 @@
-
 #!/usr/bin/env pybricks-micropython
 
 from calibracao.constantes import *
@@ -9,25 +8,26 @@ def ler_linha():
 
     s1 = sensor_corDr.reflection()
     s2 = sensor_corEs.reflection()
-    s3= sensor_corEs_Multi.reflection()
-    s4= sensorDr_Multi.reflection()
+    s3 = sensor_corEs_Multi.reflection()
+    s4 = sensorDr_Multi.reflection()
 
-    return s1, s2,s3,s4
+    return s1, s2, s3, s4
 
 
 def encontrou_linha():
 
-    s1, s2,s3,s4 = ler_linha()
+    s1, s2, s3, s4 = ler_linha()
 
     if s1 < LIMIAR:
         return True
 
     if s2 < LIMIAR:
         return True
-    
-    if s3<LIMIAR:
+
+    if s3 < LIMIAR:
         return True
-    if s4<LIMIAR:
+
+    if s4 < LIMIAR:
         return True
 
     return False
@@ -36,20 +36,24 @@ def encontrou_linha():
 def desviar():
 
     # -----------------------------------------------------
-    # 1. PARA
+    # 1. PARA AO DETECTAR O OBSTÁCULO
     # -----------------------------------------------------
 
     parar()
     wait(1000)
-  #aqui
+
 
     # -----------------------------------------------------
-    # 2. SAI DA LINHA
+    # 2. SAI DA LINHA PARA A DIREITA
+    # -----------------------------------------------------
+    # OBS:
+    # No seu robô, virarEsquerda() faz o movimento
+    # físico para a DIREITA.
     # -----------------------------------------------------
 
     virarEsquerda()
-    wait(2000)
-  #aqui
+    wait(3500)
+
     parar()
     wait(1000)
 
@@ -62,93 +66,65 @@ def desviar():
 
     wait(1500)
 
-    # Continua andando enquanto o objeto estiver
-    # sendo detectado pelo sensor lateral
+
+    # Continua andando enquanto o sensor lateral
+    # estiver detectando o obstáculo
+
     while sensor_distanciaLateral.distance() < 15:
         wait(50)
 
 
     # -----------------------------------------------------
-    # 4. GARANTE QUE PASSOU COMPLETAMENTE DO OBJETO
+    # 4. GARANTE QUE PASSOU COMPLETAMENTE DO OBSTÁCULO
     # -----------------------------------------------------
-
-    # Quando o sensor perde o objeto, ainda anda
-    # um pouco para garantir que a traseira do robô
-    # também ultrapassou o obstáculo.
 
     andar(200)
     wait(2000)
 
     parar()
     wait(500)
-  #aqui
-
-    distancia_lateral = sensor_distanciaLateral.distance()
-
-    ev3.screen.clear()
-    ev3.screen.print("OBJETO PASSOU!")
-    ev3.screen.print("Dist:", distancia_lateral)
-
-    wait(500)
 
 
     # -----------------------------------------------------
-    # 5. VIRA PARA A ESQUERDA
+    # 5. VOLTA EM DIREÇÃO À LINHA
     # -----------------------------------------------------
-
-    virarEsquerda()
-    wait(2000)
-  #aqui
-    parar()
-    wait(500)
-
-   
-
-
-    # -----------------------------------------------------
-    # 6. VIRA PARA A DIREITA
+    # OBS:
+    # No seu robô, virarDireita() faz o movimento
+    # físico para a ESQUERDA.
     # -----------------------------------------------------
 
     virarDireita()
-    wait(2000)
-  #aqui
+    wait(3800)
+
     parar()
     wait(500)
-  #aqui
 
-    andar(200)
+
+    # -----------------------------------------------------
+    # 6. PROCURA A LINHA
+    # -----------------------------------------------------
+
+    andar(100)
     wait(2000)
-  #aqui
+
     virarEsquerda()
-    wait(2000)
-  #aqui
-    parar()
-    wait(500)
-    #aqui
-
-
-    # -----------------------------------------------------
-    # 8. PROCURA A LINHA
-    # -----------------------------------------------------
+    wait(3500)
 
     andar(200)
+    wait(2000)
 
     while not encontrou_linha():
         wait(50)
 
 
     # -----------------------------------------------------
-    # 9. ENCONTROU A LINHA
+    # 7. ENCONTROU A LINHA
     # -----------------------------------------------------
-    
+
     parar()
     wait(500)
-    #aqui
 
     ev3.screen.clear()
     ev3.screen.print("LINHA ENCONTRADA!")
 
     wait(1000)
-
-
-#arrumar os wait e as funções de virar

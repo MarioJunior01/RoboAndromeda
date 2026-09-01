@@ -27,7 +27,7 @@ VELOCIDADE_CURVA = 100
 velocidade = 200
 velocidade_curva=100
 DISTANCIA_OBJETO= 5
-LIMIAR= 10
+LIMIAR= 15
 
 ALVO = 50
 integral = 0

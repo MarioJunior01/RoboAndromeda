@@ -67,6 +67,9 @@ def detectar_curva_90():
     # sensores centrais (Dr, Es
     liminarDr= sensor_corEs_Multi.reflection()
     liminarEs= sensorDr_Multi.reflection()
+    
+    if liminarDr < LIMIAR and liminarEs<LIMIAR:
+        return 'ambos'
 
     if liminarDr < LIMIAR:
         return 'direita'
@@ -74,8 +77,7 @@ def detectar_curva_90():
     if liminarEs < LIMIAR:
         return 'esquerda'
     
-    if liminarDr < LIMIAR and liminarEs<LIMIAR:
-        return 'ambos'
+   
 
     return None
 def esperar_linha_apos_curva(tentativas=150):
@@ -98,10 +100,11 @@ def virar_90(direcao):
         parar()
         wait(100)
         virarEsquerda(200)   # pivota no eixo, para a direita
-    if direcao=="esquerda":
+    elif direcao=="esquerda":
        parar()
        wait(100)
        virarDireita(200)
+       
         
     wait(400)
 
