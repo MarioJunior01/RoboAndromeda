@@ -8,6 +8,7 @@ from menus.principal import menu_principal
 from menus.principal import *
 from movimentos.movimentosBasicos import *
 
+
 def programa_principal():
 
     ev3.screen.clear()

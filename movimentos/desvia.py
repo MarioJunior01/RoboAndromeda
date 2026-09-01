@@ -70,7 +70,7 @@ def desviar():
     # Continua andando enquanto o sensor lateral
     # estiver detectando o obstáculo
 
-    while sensor_distanciaLateral.distance() < 15:
+    while sensor_distanciaLateral.distance() < 35:
         wait(50)
 
 
@@ -102,19 +102,19 @@ def desviar():
 
     # -----------------------------------------------------
     # 6. PROCURA A LINHA
-    # -----------------------------------------------------
+    # --------------gg---------------------------------------
 
-    andar(100)
-    wait(2000)
+    andar(200)
+    wait(4000)
 
-    virarEsquerda()
+    virarDireita()
     wait(3500)
 
     andar(200)
     wait(2000)
 
     while not encontrou_linha():
-        wait(50)
+        wait(10)
 
 
     # -----------------------------------------------------

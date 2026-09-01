@@ -50,8 +50,8 @@ def seguidor_linha():
     motorDr.run(velocidade_direita)
         
     erro_anterior = erro
-        
     wait(10)
+        
 
 
 
@@ -78,7 +78,7 @@ def detectar_curva_90():
    
 
     return None
-def esperar_linha_apos_curva(tentativas=150):
+def esperar_linha_apos_curva(tentativas=40):
     # tentativas=150 * 20ms = ~3s de tolerância, ajuste conforme seu robô
 
     if tentativas <= 0:
@@ -96,15 +96,15 @@ def virar_90(direcao):
 
     if direcao == 'direita':
         parar()
-        wait(100)
+        wait(200)
         virarEsquerda(200)   # pivota no eixo, para a direita
     elif direcao=="esquerda":
        parar()
-       wait(100)
+       wait(200)
        virarDireita(200)
        
         
-    wait(400)
+    wait(700)
 
     esperar_linha_apos_curva()
 
