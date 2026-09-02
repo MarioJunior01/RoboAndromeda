@@ -220,14 +220,13 @@ def virar_90(direcao):
         wait(100)
 
         # Ajuste conforme o seu percurso.
-        virarDireita(200)
 
 
     # --------------------------------------------------------
     # Espera terminar o giro
     # --------------------------------------------------------
 
-    wait(500)
+    wait(800)
 
 
     # --------------------------------------------------------
@@ -253,7 +252,7 @@ def virar_90(direcao):
 # ESPERAR A LINHA DEPOIS DA CURVA
 # ============================================================
 
-def esperar_linha_apos_curva(tentativas=150):
+def esperar_linha_apos_curva(tentativas=10):
 
     """
     Depois de fazer a curva, fica procurando a linha.

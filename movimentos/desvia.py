@@ -2,6 +2,7 @@
 
 from calibracao.constantes import *
 from .movimentosBasicos import *
+from .seguidorLinha import*
 
 
 def ler_linha():
@@ -52,7 +53,7 @@ def desviar():
     # -----------------------------------------------------
 
     virarEsquerda()
-    wait(3500)
+    wait(4700)
 
     parar()
     wait(1000)
@@ -63,15 +64,24 @@ def desviar():
     # -----------------------------------------------------
 
     andar(200)
+    wait(2500)
 
-    wait(1500)
+    parar()
+    wait(1000)
+    
+    virarDireita()
+    wait(4000)
+    parar()
+    wait(1000)
 
+    andar(200)
+    wait(3000)
 
     # Continua andando enquanto o sensor lateral
     # estiver detectando o obstáculo
 
     while sensor_distanciaLateral.distance() < 35:
-        wait(50)
+       wait(50)
 
 
     # -----------------------------------------------------
@@ -79,7 +89,7 @@ def desviar():
     # -----------------------------------------------------
 
     andar(200)
-    wait(2000)
+    wait(1000)
 
     parar()
     wait(500)
@@ -94,7 +104,7 @@ def desviar():
     # -----------------------------------------------------
 
     virarDireita()
-    wait(3800)
+    wait(4000)
 
     parar()
     wait(500)
@@ -104,23 +114,26 @@ def desviar():
     # 6. PROCURA A LINHA
     # --------------gg---------------------------------------
 
+
+
+    
+
+    
     andar(200)
-    wait(4000)
-
-    virarDireita()
-    wait(3500)
-
-    andar(200)
-    wait(2000)
-
-    while not encontrou_linha():
-        wait(10)
+    wait(800)
 
 
-    # -----------------------------------------------------
-    # 7. ENCONTROU A LINHA
-    # -----------------------------------------------------
 
+    virarEsquerda()
+    wait(200)
+
+    lado = detectar_curva_90()
+
+    if lado =="esquerda":
+        virar_90("direita")
+
+
+    
     parar()
     wait(500)
 
@@ -128,3 +141,60 @@ def desviar():
     ev3.screen.print("LINHA ENCONTRADA!")
 
     wait(1000)
+
+
+def detectar_curva_90():
+
+    """
+    Lê TODOS os sensores de reflexão usados na detecção
+    da curva.
+
+    Sensores:
+        sensor_corEs_Multi
+        sensorDr_Multi
+
+    Retorna:
+        'direita'
+        'esquerda'
+        'ambos'
+        None
+    """
+
+    # --------------------------------------------------------
+    # LEITURA DOS SENSORES DE REFLEXÃO
+    # --------------------------------------------------------
+
+    reflexao_esquerda = sensor_corEs_Multi.reflection()
+    reflexao_direita = sensorDr_Multi.reflection()
+
+
+    # --------------------------------------------------------
+    # Ambos detectaram a condição de curva
+    # --------------------------------------------------------
+
+    if (reflexao_esquerda < LIMIAR and
+            reflexao_direita < LIMIAR):
+
+        return 'ambos'
+
+
+    # --------------------------------------------------------
+    # Sensor esquerdo detectou
+    # --------------------------------------------------------
+
+    if reflexao_esquerda < LIMIAR:
+
+        return 'esquerda'
+
+
+    # --------------------------------------------------------
+    # Sensor direito detectou
+    # --------------------------------------------------------
+
+    if reflexao_direita < LIMIAR:
+
+        return 'direita'
+
+
+    return None
+    
