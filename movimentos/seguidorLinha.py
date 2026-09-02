@@ -11,6 +11,7 @@ def seguidor_linha():
 
 
     if curva is not None:
+        ev3.speaker.beep(200)
         virar_90(curva)
         
    

@@ -27,13 +27,14 @@ VELOCIDADE_CURVA = 100
 velocidade = 200
 velocidade_curva=100
 DISTANCIA_OBJETO= 5
+
 LIMIAR= 15
 
 ALVO = 50
 integral = 0
 erro_anterior = 0      
 
-KP = 2
+KP = 2.5
 KI = 0.02
 KD = 0.3
 
