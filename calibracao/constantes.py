@@ -10,12 +10,16 @@ motorEs = Motor(Port.B)
 motorGarra = Motor(Port.C)
 sensor_corEs = ColorSensor(Port.S1)
 sensor_corDr = ColorSensor(Port.S2)
-sensor_distanciaFrente = InfraredSensor(Port.S3)
+sensor_distanciaFrente =  MuxInfraredSensor(3,2)
 
-sensorDr_Multi=MuxColorSensor(4, 1)
-sensor_corEs_Multi=MuxColorSensor(4, 2)
+sensor_distanciaLateraEsquerda =  MuxInfraredSensor(4,3)
 
-sensor_distanciaLateral = MuxInfraredSensor(4,3)
+
+sensor_distanciaLateralDireita = MuxInfraredSensor(4,1)
+
+sensorDr_Multi=MuxColorSensor(3,3)
+sensor_corEs_Multi=MuxColorSensor(4,2)
+
 
 
 

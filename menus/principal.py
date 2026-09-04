@@ -36,7 +36,7 @@ def  musicaInicializacao():
         wait(30)
         
 
-musicaInicializacao()
+#musicaInicializacao()
 
 
 def mostrar_menu():

@@ -80,7 +80,7 @@ def desviar():
     # Continua andando enquanto o sensor lateral
     # estiver detectando o obstáculo
 
-    while sensor_distanciaLateral.distance() < 35:
+    while sensor_distanciaLateraEsquerda.distance() < 35:
        wait(50)
 
 

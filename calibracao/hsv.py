@@ -413,4 +413,3 @@ def executar_hsv():
         verificar_cor()
 
         wait(500)
-

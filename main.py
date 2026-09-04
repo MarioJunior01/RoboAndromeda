@@ -7,6 +7,7 @@ from movimentos.desvia import desviar
 from menus.principal import menu_principal
 from menus.principal import *
 from movimentos.movimentosBasicos import *
+from movimentos.sala3 import*
 
 
 def programa_principal():
@@ -50,6 +51,12 @@ def programa_principal():
 
             wait(5000)
 
+        if verificar_cinza(ev3):
+            ev3.speaker.beep(700)
+            wait(100)
+            ev3.speaker.beep(400)
+            wait(100)
+            sala3()
 
 
         seguidor_linha()
